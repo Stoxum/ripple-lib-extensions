@@ -70,7 +70,7 @@
                      },
                      "LowNode" : "0000000000000000"
                   },
-                  "LedgerEntryType" : "RippleState",
+                  "LedgerEntryType" : "StoxumState",
                   "LedgerIndex" : "1AC76982771D3660656D83FA7CCE8E833C42DA797BECAAB30F36D6EEF73BE91B",
                   "PreviousFields" : {
                      "Balance" : {
@@ -124,7 +124,7 @@
                      },
                      "LowNode" : "0000000000000000"
                   },
-                  "LedgerEntryType" : "RippleState",
+                  "LedgerEntryType" : "StoxumState",
                   "LedgerIndex" : "9D9CE283FB821F2A2DA5BCA55DFB2FD7758D129F3060B1F7834B7784AF4CD15C",
                   "PreviousFields" : {
                      "Balance" : {
@@ -159,7 +159,7 @@
                      },
                      "LowNode" : "0000000000000000"
                   },
-                  "LedgerEntryType" : "RippleState",
+                  "LedgerEntryType" : "StoxumState",
                   "LedgerIndex" : "C5F104A35DB835AF4A4C4664BCDA57A88873DCEF23DF567485654FAEE5645949",
                   "PreviousFields" : {
                      "Balance" : {
@@ -194,7 +194,7 @@
                      },
                      "LowNode" : "0000000000000000"
                   },
-                  "LedgerEntryType" : "RippleState",
+                  "LedgerEntryType" : "StoxumState",
                   "LedgerIndex" : "CC07E55B7114FAD14663E5BDD16458E3EFA300C2C139E4E0FC9E2635E3D8099E",
                   "PreviousFields" : {
                      "Balance" : {
@@ -229,7 +229,7 @@
                      },
                      "LowNode" : "0000000000000000"
                   },
-                  "LedgerEntryType" : "RippleState",
+                  "LedgerEntryType" : "StoxumState",
                   "LedgerIndex" : "FBCA655A6C287E90234BF96E8CF950B8B0DE4438C95F408A0E55D256EA2A8DD1",
                   "PreviousFields" : {
                      "Balance" : {
@@ -264,7 +264,7 @@
                      },
                      "LowNode" : "0000000000000000"
                   },
-                  "LedgerEntryType" : "RippleState",
+                  "LedgerEntryType" : "StoxumState",
                   "LedgerIndex" : "FDBBB8BF83FF697C7F68E67AAA06A9E0774CB2727B53E95E63B6416AF0B1A2A7",
                   "PreviousFields" : {
                      "Balance" : {

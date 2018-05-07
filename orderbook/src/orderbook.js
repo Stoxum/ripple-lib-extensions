@@ -20,13 +20,13 @@ const {EventEmitter} = require('events')
 const {normalizeCurrency, isValidCurrency} = require('./currencyutils')
 const {AutobridgeCalculator} = require('./autobridgecalculator')
 const OrderBookUtils = require('./orderbookutils')
-const {isValidAddress} = require('ripple-address-codec')
-const {XRPValue, IOUValue} = require('ripple-lib-value')
+const {isValidAddress} = require('stoxum-address-codec')
+const {STMValue, IOUValue} = require('stoxum-lib-value')
 const log = require('./log').internal.sub('orderbook')
 
-import type {RippledAmount} from './orderbookutils'
+import type {StoxumdAmount} from './orderbookutils'
 
-type Value = XRPValue | IOUValue;
+type Value = STMValue | IOUValue;
 
 type CurrencySpec = {
   currency: string,
@@ -45,7 +45,7 @@ type CreateOrderbookOptions = {
 
 const DEFAULT_TRANSFER_RATE = new IOUValue('1.000000000')
 
-const ZERO_NATIVE_AMOUNT = new XRPValue('0')
+const ZERO_NATIVE_AMOUNT = new STMValue('0')
 
 const ZERO_NORMALIZED_AMOUNT = new IOUValue('0')
 
@@ -65,9 +65,9 @@ function prepareTrade(currency: string, issuer_?: string): string {
   return currency + suffix
 }
 
-function parseRippledAmount(amount: RippledAmount): Value {
+function parseStoxumdAmount(amount: StoxumdAmount): Value {
   return typeof amount === 'string' ?
-    new XRPValue(amount) :
+    new STMValue(amount) :
     new IOUValue(amount.value)
 }
 
@@ -80,7 +80,7 @@ function _sortOffersQuick(a, b) {
  * are returned
  *
  * @constructor OrderBook
- * @param {RippleAPI} api
+ * @param {StoxumAPI} api
  * @param {String} account
  * @param {String} ask currency
  * @param {String} ask issuer
@@ -260,7 +260,7 @@ class OrderBook extends EventEmitter {
       // that requests will be queued and
       // eventually all of them will fire back
       return Promise.reject(
-        new this._api.errors.RippleError('Server is offline'))
+        new this._api.errors.StoxumError('Server is offline'))
     }
 
     if (this._isAutobridgeable) {
@@ -305,7 +305,7 @@ class OrderBook extends EventEmitter {
   }
 
 
-  static _getValFromRippledAmount(value_: RippledAmount): string {
+  static _getValFromStoxumdAmount(value_: StoxumdAmount): string {
     return typeof value_ === 'string' ? value_ : value_.value
   }
 
@@ -524,9 +524,9 @@ class OrderBook extends EventEmitter {
 
       const state = {
         takerGetsTotal: this._currencyGets === 'XRP' ?
-          new XRPValue('0') : new IOUValue('0'),
+          new STMValue('0') : new IOUValue('0'),
         takerPaysTotal: this._currencyPays === 'XRP' ?
-          new XRPValue('0') : new IOUValue('0'),
+          new STMValue('0') : new IOUValue('0'),
         transactionOwnerFunds: transaction.transaction.owner_funds
       }
 
@@ -559,9 +559,9 @@ class OrderBook extends EventEmitter {
         // We don't want to count an OfferCancel as a trade
         if (!isOfferCancel) {
           state.takerGetsTotal = state.takerGetsTotal
-            .add(parseRippledAmount(node.fieldsFinal.TakerGets))
+            .add(parseStoxumdAmount(node.fieldsFinal.TakerGets))
           state.takerPaysTotal = state.takerPaysTotal
-            .add(parseRippledAmount(node.fieldsFinal.TakerPays))
+            .add(parseStoxumdAmount(node.fieldsFinal.TakerPays))
         }
         break
       }
@@ -570,17 +570,17 @@ class OrderBook extends EventEmitter {
         this._modifyOffer(node)
 
         state.takerGetsTotal = state.takerGetsTotal
-          .add(parseRippledAmount(node.fieldsPrev.TakerGets))
-          .subtract(parseRippledAmount(node.fieldsFinal.TakerGets))
+          .add(parseStoxumdAmount(node.fieldsPrev.TakerGets))
+          .subtract(parseStoxumdAmount(node.fieldsFinal.TakerGets))
 
         state.takerPaysTotal = state.takerPaysTotal
-          .add(parseRippledAmount(node.fieldsPrev.TakerPays))
-          .subtract(parseRippledAmount(node.fieldsFinal.TakerPays))
+          .add(parseStoxumdAmount(node.fieldsPrev.TakerPays))
+          .subtract(parseStoxumdAmount(node.fieldsFinal.TakerPays))
         break
       }
       case 'CreatedNode': {
         this._validateAccount(node.fields.Account)
-        // rippled does not set owner_funds if the order maker is the issuer
+        // stoxumd does not set owner_funds if the order maker is the issuer
         // because the value would be infinite
         const fundedAmount = state.transactionOwnerFunds !== undefined ?
           state.transactionOwnerFunds : 'Infinity'
@@ -594,7 +594,7 @@ class OrderBook extends EventEmitter {
   /**
    * Updates funded amounts/balances using modified balance nodes
    *
-   * Update owner funds using modified AccountRoot and RippleState nodes
+   * Update owner funds using modified AccountRoot and StoxumState nodes
    * Update funded amounts for offers in the orderbook using owner funds
    *
    * @param {Object} transaction - transaction that holds meta nodes
@@ -625,7 +625,7 @@ class OrderBook extends EventEmitter {
 
     const affectedNodes = OrderBookUtils.getAffectedNodes(metadata, {
       nodeType: 'ModifiedNode',
-      entryType: this._currencyGets === 'XRP' ? 'AccountRoot' : 'RippleState'
+      entryType: this._currencyGets === 'XRP' ? 'AccountRoot' : 'StoxumState'
     })
 
     if (this._trace) {
@@ -650,7 +650,7 @@ class OrderBook extends EventEmitter {
   /**
    * Get account and final balance of a meta node
    *
-   * @param {Object} node - RippleState or AccountRoot meta node
+   * @param {Object} node - StoxumState or AccountRoot meta node
    * @return {Object}
    */
 
@@ -669,7 +669,7 @@ class OrderBook extends EventEmitter {
         result.balance = node.fieldsFinal.Balance
         break
 
-      case 'RippleState':
+      case 'StoxumState':
         if (node.fields.HighLimit.issuer === this._issuerGets) {
           result.account = node.fields.LowLimit.issuer
           result.balance = node.fieldsFinal.Balance.value
@@ -677,7 +677,7 @@ class OrderBook extends EventEmitter {
           result.account = node.fields.HighLimit.issuer
 
           // Negate balance on the trust line
-          result.balance = parseRippledAmount(node.fieldsFinal.Balance)
+          result.balance = parseStoxumdAmount(node.fieldsFinal.Balance)
             .negate().toFixed()
         }
         break
@@ -693,7 +693,7 @@ class OrderBook extends EventEmitter {
   /**
    * Check that affected meta node represents a balance change
    *
-   * @param {Object} node - RippleState or AccountRoot meta node
+   * @param {Object} node - StoxumState or AccountRoot meta node
    * @return {Boolean}
    */
 
@@ -798,9 +798,9 @@ class OrderBook extends EventEmitter {
    * @return {Amount}
    */
 
-  _subtractOwnerOfferTotal(account: string, amount: RippledAmount): Value {
+  _subtractOwnerOfferTotal(account: string, amount: StoxumdAmount): Value {
     const previousAmount = this._getOwnerOfferTotal(account)
-    const newAmount = previousAmount.subtract(parseRippledAmount(amount))
+    const newAmount = previousAmount.subtract(parseStoxumdAmount(amount))
 
     this._ownerOffersTotal[account] = newAmount
 
@@ -959,7 +959,7 @@ class OrderBook extends EventEmitter {
 
   _getOfferTakerGetsFunded(offer: Object): Value {
     return this._currencyGets === 'XRP' ?
-      new XRPValue(offer.taker_gets_funded) :
+      new STMValue(offer.taker_gets_funded) :
       new IOUValue(offer.taker_gets_funded)
   }
 
@@ -1033,7 +1033,7 @@ class OrderBook extends EventEmitter {
       // that requests will be queued and
       // eventually all of them will fire back
       return Promise.reject(
-        new this._api.errors.RippleError('Server is offline'))
+        new this._api.errors.StoxumError('Server is offline'))
     }
 
     if (this._trace) {
@@ -1050,7 +1050,7 @@ class OrderBook extends EventEmitter {
       this._lastUpdateLedgerSequence = response.ledger_index
       if (!Array.isArray(response.offers)) {
         this._emitAsync(['model', []])
-        throw new this._api.errors.RippleError('Invalid response')
+        throw new this._api.errors.StoxumError('Invalid response')
       }
 
       if (this._ledgerIndex) {
@@ -1198,7 +1198,7 @@ class OrderBook extends EventEmitter {
   _setOfferFundedAmount(offer: Object): Object {
     assert.strictEqual(typeof offer, 'object', 'Offer is invalid')
 
-    const takerGets = parseRippledAmount(offer.TakerGets)
+    const takerGets = parseStoxumdAmount(offer.TakerGets)
     const fundedAmount = this._getOwnerFunds(offer.Account)
     const previousOfferSum = this._getOwnerOfferTotal(offer.Account)
     const currentOfferSum = previousOfferSum.add(takerGets)
@@ -1211,7 +1211,7 @@ class OrderBook extends EventEmitter {
     if (offer.is_fully_funded) {
       offer.taker_gets_funded = takerGets.toString()
       offer.taker_pays_funded =
-        OrderBook._getValFromRippledAmount(offer.TakerPays)
+        OrderBook._getValFromStoxumdAmount(offer.TakerPays)
     } else if (previousOfferSum.comparedTo(fundedAmount) < 0) {
       offer.taker_gets_funded =
         fundedAmount.subtract(previousOfferSum).toString()
@@ -1240,7 +1240,7 @@ class OrderBook extends EventEmitter {
    * @return {Amount}
    */
 
-  _addOwnerOfferTotal(account: string, amount: RippledAmount): Value {
+  _addOwnerOfferTotal(account: string, amount: StoxumdAmount): Value {
     const previousAmount = this._getOwnerOfferTotal(account)
     const currentAmount = previousAmount.add(this._makeGetsValue(amount))
 
@@ -1267,10 +1267,10 @@ class OrderBook extends EventEmitter {
   }
 
 
-  _makeGetsValue(value_: RippledAmount): Value {
-    const value = OrderBook._getValFromRippledAmount(value_)
+  _makeGetsValue(value_: StoxumdAmount): Value {
+    const value = OrderBook._getValFromStoxumdAmount(value_)
     return this._currencyGets === 'XRP' ?
-      new XRPValue(value) :
+      new STMValue(value) :
       new IOUValue(value)
   }
 
@@ -1300,7 +1300,7 @@ class OrderBook extends EventEmitter {
     if (this._trace) {
       log.info('No owner funds for ' + account, this._key)
     }
-    throw new this._api.errors.RippleError('No owner funds')
+    throw new this._api.errors.StoxumError('No owner funds')
   }
 
 

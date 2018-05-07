@@ -7,13 +7,13 @@ var webpack = require('webpack-stream')
 var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
 var pkg = require('./package.json')
-var name = 'ripple-orderbook-' + pkg.version
+var name = 'stoxum-orderbook-' + pkg.version
 
 gulp.task('build', function() {
   return gulp.src('./dist/npm/index.js')
   .pipe(webpack({
     output: {
-      library: 'rippleOrderbook',
+      library: 'stoxumOrderbook',
       filename: name + '.js'
     },
     module: {

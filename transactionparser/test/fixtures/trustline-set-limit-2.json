@@ -30,7 +30,7 @@
       },
       {
         "CreatedNode": {
-          "LedgerEntryType": "RippleState",
+          "LedgerEntryType": "StoxumState",
           "LedgerIndex": "791DCC45D985B40DC7E3BFB7394B5287E8027BCFCE07F5A55A2492738724F97B",
           "NewFields": {
             "Balance": {

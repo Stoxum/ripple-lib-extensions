@@ -1,18 +1,18 @@
-ripple-lib-messagesigner
+stoxum-lib-messagesigner
 ------------------------
 
 This module exports a Message class which can sign arbitrary data. To use it you
-must use the exported class factory, which injects the required ripple-lib and
+must use the exported class factory, which injects the required stoxum-lib and
 sjcl-extended dependencies.
 
 ```javascript
 // import dependencies
-var ripplelib = require('ripple-lib');
+var stoxumlib = require('stoxum-lib');
 var sjcl = require('sjcl-extended');
 
 // wire it all together
-var messageFactory = require('ripple-lib-messagesigner');
-var Message = messageFactory(ripplelib, sjcl);
+var messageFactory = require('stoxum-lib-messagesigner');
+var Message = messageFactory(stoxumlib, sjcl);
 
 // sign a message
 var secret = 'safRpB5euNL52PZPTSqrE9gvuFwTC';

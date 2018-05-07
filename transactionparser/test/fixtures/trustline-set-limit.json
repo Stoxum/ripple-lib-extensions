@@ -31,7 +31,7 @@
             },
             "LowNode": "0000000000000000"
           },
-          "LedgerEntryType": "RippleState",
+          "LedgerEntryType": "StoxumState",
           "LedgerIndex": "AAE13AF5192EFBFD49A8EEE5869595563FEB73228C0B38FED9CC3D20EE74F399",
           "PreviousFields": {
             "LowLimit": {

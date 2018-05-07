@@ -100,7 +100,7 @@ function parseQuantities(metadata, valueParser) {
   var values = normalizeNodes(metadata).map(function(node) {
     if (node.entryType === 'AccountRoot') {
       return [parseXRPQuantity(node, valueParser)]
-    } else if (node.entryType === 'RippleState') {
+    } else if (node.entryType === 'StoxumState') {
       return parseTrustlineQuantity(node, valueParser)
     }
     return []

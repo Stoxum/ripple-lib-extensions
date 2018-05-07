@@ -5,7 +5,7 @@
 const _ = require('lodash')
 const assert = require('assert')
 const Utils = require('./orderbookutils')
-const {IOUValue} = require('ripple-lib-value')
+const {IOUValue} = require('stoxum-lib-value')
 
 function assertValidNumber(number, message) {
   assert(!_.isNull(number) && !isNaN(number), message)
@@ -489,7 +489,7 @@ class AutobridgeCalculator {
 
   _getOfferTakerGets(offer: Object): IOUValue {
     assert(typeof offer, 'object', 'Offer is invalid')
-    return new IOUValue(Utils.getValueFromRippledAmount(offer.TakerGets))
+    return new IOUValue(Utils.getValueFromStoxumdAmount(offer.TakerGets))
   }
 
 }

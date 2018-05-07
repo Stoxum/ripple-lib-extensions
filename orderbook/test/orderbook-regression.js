@@ -6,7 +6,7 @@
 
 const assert = require('assert-diff')
 
-const RippleAPI = require('ripple-lib').RippleAPI
+const StoxumAPI = require('stoxum-lib').StoxumAPI
 const OrderBook = require('../src/orderbook').OrderBook
 
 const {normalizeCurrency} = require('../src/currencyutils')
@@ -18,7 +18,7 @@ const regressionTransactions = require('./fixtures/regression-data-transactions.
 describe.skip('regression test', function() {
 
   it('usd/usd model', function(done) {
-    const api = new RippleAPI()
+    const api = new StoxumAPI()
     const book = OrderBook.createOrderBook(api, {
       currency_gets: 'USD',
       issuer_gets: 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B',

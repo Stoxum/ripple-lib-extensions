@@ -3,13 +3,13 @@
 'use strict';
 
 const Value = require('./value').Value;
-const XRPValue = require('./xrpvalue').XRPValue;
+const STMValue = require('./STMValue').STMValue;
 const GlobalBigNumber = require('bignumber.js');
 const BigNumber = GlobalBigNumber.another({
   ROUNDING_MODE: GlobalBigNumber.ROUND_HALF_UP,
   DECIMAL_PLACES: 40
 });
-const rippleUnits = new BigNumber(1e6);
+const stoxumUnits = new BigNumber(1e6);
 
 class IOUValue extends Value {
 
@@ -20,18 +20,18 @@ class IOUValue extends Value {
   }
 
   multiply(multiplicand: Value) {
-    if (multiplicand instanceof XRPValue) {
+    if (multiplicand instanceof STMValue) {
       return super.multiply(
         new IOUValue(
-          multiplicand._value.times(rippleUnits)));
+          multiplicand._value.times(stoxumUnits)));
     }
     return super.multiply(multiplicand);
   }
 
   divide(divisor: Value) {
-    if (divisor instanceof XRPValue) {
+    if (divisor instanceof STMValue) {
       return super.divide(
-        new IOUValue(divisor._value.times(rippleUnits)));
+        new IOUValue(divisor._value.times(stoxumUnits)));
     }
     return super.divide(divisor);
   }

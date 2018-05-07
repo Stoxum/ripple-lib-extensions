@@ -5,8 +5,8 @@
 const assert = require('assert-diff')
 const addresses = require('./fixtures/addresses')
 const fixtures = require('./fixtures/orderbook')
-const {XRPValue, IOUValue} = require('ripple-lib-value')
-const RippleAPI = require('ripple-lib').RippleAPI
+const {STMValue, IOUValue} = require('stoxum-lib-value')
+const StoxumAPI = require('stoxum-lib').StoxumAPI
 const OrderBook = require('../src/orderbook').OrderBook
 const OrderBookUtils = require('../src/orderbookutils')
 const EventEmitter = require('events').EventEmitter
@@ -14,7 +14,7 @@ const EventEmitter = require('events').EventEmitter
 describe('OrderBook', function() {
 
   function createOrderBook(options) {
-    const api = new RippleAPI()
+    const api = new StoxumAPI()
     const orderbook = OrderBook.createOrderBook(api, options)
     return orderbook
   }
@@ -789,7 +789,7 @@ describe('OrderBook', function() {
               },
               LowNode: '0000000000000000'
             },
-            LedgerEntryType: 'RippleState',
+            LedgerEntryType: 'StoxumState',
             LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
             PreviousFields: {
               Balance: {
@@ -838,7 +838,7 @@ describe('OrderBook', function() {
               },
               LowNode: '0000000000000000'
             },
-            LedgerEntryType: 'RippleState',
+            LedgerEntryType: 'StoxumState',
             LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
             PreviousTxnID: '53354D84BAE8FDFC3F4DA879D984D24B929E7FEB9100D2AD9EFCD2E126BCCDC8',
             PreviousTxnLgrSeq: 343570
@@ -880,7 +880,7 @@ describe('OrderBook', function() {
               },
               LowNode: '0000000000000000'
             },
-            LedgerEntryType: 'RippleState',
+            LedgerEntryType: 'StoxumState',
             LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
             PreviousFields: {
               Balance: {
@@ -929,7 +929,7 @@ describe('OrderBook', function() {
               },
               LowNode: '0000000000000000'
             },
-            LedgerEntryType: 'RippleState',
+            LedgerEntryType: 'StoxumState',
             LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
             PreviousFields: {
               Balance: {
@@ -1042,7 +1042,7 @@ describe('OrderBook', function() {
               },
               LowNode: '0000000000000000'
             },
-            LedgerEntryType: 'RippleState',
+            LedgerEntryType: 'StoxumState',
             LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
             PreviousFields: {
               Balance: {
@@ -1077,7 +1077,7 @@ describe('OrderBook', function() {
               },
               LowNode: '0000000000000000'
             },
-            LedgerEntryType: 'RippleState',
+            LedgerEntryType: 'StoxumState',
             LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
             PreviousFields: {
               Balance: {
@@ -1148,7 +1148,7 @@ describe('OrderBook', function() {
     let receivedChangedEvents = 0
     let receivedFundsChangedEvents = 0
 
-    const message = fixtures.transactionWithRippleState()
+    const message = fixtures.transactionWithStoxumState()
 
     const book = createOrderBook({
       currency_gets: 'USD',
@@ -1196,7 +1196,7 @@ describe('OrderBook', function() {
   it('Update funded amounts - increase funds', function() {
     let receivedFundsChangedEvents = 0
 
-    const message = fixtures.transactionWithRippleState({
+    const message = fixtures.transactionWithStoxumState({
       balance: '50'
     })
 
@@ -1236,7 +1236,7 @@ describe('OrderBook', function() {
 
   it('Update funded amounts - owner_funds', function(done) {
 
-    const message = fixtures.transactionWithRippleState()
+    const message = fixtures.transactionWithStoxumState()
 
     const book = createOrderBook({
       currency_gets: 'USD',
@@ -1260,7 +1260,7 @@ describe('OrderBook', function() {
   })
 
   it('Update funded amounts - issuer transfer rate set', function(done) {
-    const message = fixtures.transactionWithRippleState()
+    const message = fixtures.transactionWithStoxumState()
 
     const book = createOrderBook({
       currency_gets: 'USD',
@@ -1393,7 +1393,7 @@ describe('OrderBook', function() {
       currency_pays: 'XRP'
     })
 
-    const message = fixtures.transactionWithRippleState()
+    const message = fixtures.transactionWithStoxumState()
 
     book._api.connection.request = function(request) {
       assert.deepEqual(request, {
@@ -1741,7 +1741,7 @@ describe('OrderBook', function() {
     })
 
     book.on('trade', function(tradePays, tradeGets) {
-      const expectedTradePays = new XRPValue(fixtures.TAKER_PAYS)
+      const expectedTradePays = new STMValue(fixtures.TAKER_PAYS)
       const expectedTradeGets = new IOUValue(fixtures.TAKER_GETS)
 
       assert(tradePays.equals(expectedTradePays))
@@ -1899,7 +1899,7 @@ describe('OrderBook', function() {
     })
 
     book.on('trade', function(tradePays, tradeGets) {
-      const expectedTradePays = new XRPValue('800000000')
+      const expectedTradePays = new STMValue('800000000')
       const expectedTradeGets = new IOUValue('1')
 
       assert(tradePays.equals(expectedTradePays))
@@ -1927,7 +1927,7 @@ describe('OrderBook', function() {
     })
 
     book.on('trade', function(tradePays, tradeGets) {
-      const expectedTradePays = new XRPValue('870000000')
+      const expectedTradePays = new STMValue('870000000')
       const expectedTradeGets = new IOUValue('2')
 
       assert(tradePays.equals(expectedTradePays))
@@ -2361,15 +2361,15 @@ describe('OrderBook', function() {
     book._subscribed = true
     book._issuerTransferRate = new IOUValue(1000000000)
 
-    function toRippleTime(t) {
+    function toStoxumTime(t) {
       const timestamp_ = t instanceof Date ? t.getTime() : t
       return Math.round(t / 1000) - 0x386D4380
     }
 
-    const d1 = toRippleTime(new Date())
+    const d1 = toStoxumTime(new Date())
     let d2 = new Date()
     d2.setSeconds(d2.getSeconds() - 1)
-    d2 = toRippleTime(d2)
+    d2 = toStoxumTime(d2)
 
     const offers = fixtures.fiatOffers({expiration: d2})
     offers[0].Expiration = offers[0].Expiration + 2
@@ -2453,7 +2453,7 @@ describe('OrderBook', function() {
       ledger_index: 123456
     }
     const book = createOrderBook(options)
-    const rippled_offers = {
+    const stoxumd_offers = {
       XRPBTC: [{
         'Account': 'rBWVP27pWkp7RRy3ry5T7an7hJUQdJfCDR',
         'BookDirectory': '37AAC93D336021AE94310D0430FFA090F7137C97D473488C491A0F8E01CF5BA7',
@@ -2536,7 +2536,7 @@ describe('OrderBook', function() {
       } else if (message.command === 'book_offers') {
         assert(message.ledger_index === options.ledger_index)
         key = message.taker_gets.currency + message.taker_pays.currency
-        response.offers = rippled_offers[key]
+        response.offers = stoxumd_offers[key]
         response.ledger_index = options.ledger_index
       }
 

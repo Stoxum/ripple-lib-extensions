@@ -7,8 +7,8 @@ const _ = require('lodash')
 const assert = require('assert-diff')
 const addresses = require('./fixtures/addresses')
 const fixtures = require('./fixtures/orderbook')
-const {IOUValue} = require('ripple-lib-value')
-const {RippleAPI} = require('ripple-lib')
+const {IOUValue} = require('stoxum-lib-value')
+const {StoxumAPI} = require('stoxum-lib')
 const {OrderBook} = require('../src/orderbook')
 const Utils = require('../src/orderbookutils')
 
@@ -17,7 +17,7 @@ describe('OrderBook Autobridging', function() {
   this.timeout(0)
 
   function createOrderBook(options) {
-    const api = new RippleAPI()
+    const api = new StoxumAPI()
     const orderbook = OrderBook.createOrderBook(api, options)
     return orderbook
   }

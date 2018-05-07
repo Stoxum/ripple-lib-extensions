@@ -1,4 +1,4 @@
 module.exports = {
-  XRPValue: require('./xrpvalue').XRPValue,
+  STMValue: require('./STMValue').STMValue,
   IOUValue: require('./iouvalue').IOUValue
 }

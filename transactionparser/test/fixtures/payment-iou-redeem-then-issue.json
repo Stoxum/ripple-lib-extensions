@@ -41,7 +41,7 @@
                      },
                      "LowNode" : "0000000000000000"
                   },
-                  "LedgerEntryType" : "RippleState",
+                  "LedgerEntryType" : "StoxumState",
                   "LedgerIndex" : "88DA36A0E2F92E2E3504DC7936FDB719769486A6BE1BEC4F1E3B580538D28B4A",
                   "PreviousFields" : {
                      "Balance" : {

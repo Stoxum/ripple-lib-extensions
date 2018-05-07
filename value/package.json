@@ -1,8 +1,8 @@
 {
-  "name": "ripple-lib-value",
+  "name": "stoxum-lib-value",
   "version": "0.1.0",
   "license": "ISC",
-  "description": "Classes for dealing with Ripple amount values",
+  "description": "Classes for dealing with Stoxum amount values",
   "files": [
     "dist/npm/*",
     "test/*"
@@ -14,17 +14,17 @@
     "prepublish": "npm run clean && npm run compile",
     "test": "istanbul test _mocha",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "lint": "if ! [ -f eslintrc ]; then curl -o eslintrc 'https://raw.githubusercontent.com/ripple/javascript-style-guide/es6/eslintrc'; echo 'parser: babel-eslint' >> eslintrc; fi; eslint -c eslintrc src/"
+    "lint": "if ! [ -f eslintrc ]; then curl -o eslintrc 'https://raw.githubusercontent.com/Stoxum/javascript-style-guide/es6/eslintrc'; echo 'parser: babel-eslint' >> eslintrc; fi; eslint -c eslintrc src/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ripple/ripple-lib-extensions.git"
+    "url": "https://github.com/Stoxum/stoxum-lib-extensions.git"
   },
   "main": "dist/npm/",
   "keywords": [
-    "ripple",
-    "ripple-lib",
-    "ripple-lib-value"
+    "stoxum",
+    "stoxum-lib",
+    "stoxum-lib-value"
   ],
   "engines": {
     "node": ">=0.12.0"

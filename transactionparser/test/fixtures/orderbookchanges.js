@@ -68,7 +68,7 @@ exports.offerCreateNoChangeTakerGets = function() {
         },
         {
           'ModifiedNode': {
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'PreviousTxnLgrSeq': 14873585,
             'PreviousTxnID': '0595A5E357FC561E0124B51CE9B1315CF81B651516B166595EEA99E98F99CB67',
             'LedgerIndex': '4076B3E46BC7395A7B44AEBB2C1B09EFE3BEFCAD3224FF2663A8725308A726D5',
@@ -118,7 +118,7 @@ exports.offerCreateNoChangeTakerGets = function() {
         },
         {
           'ModifiedNode': {
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'PreviousTxnLgrSeq': 14852798,
             'PreviousTxnID': '7966A2BEFE7DED8D55E2513B943143810FA7AC40AAB31BEDFCC415D7E23FCC1F',
             'LedgerIndex': '477E841FBB209C29E3E42B80C75136EE9792FFE69AA71450B9B9DC42AF73195A',
@@ -153,7 +153,7 @@ exports.offerCreateNoChangeTakerGets = function() {
         },
         {
           'ModifiedNode': {
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'PreviousTxnLgrSeq': 14873632,
             'PreviousTxnID': '02163187DAED3169C2846261F2E941582B4D27F421EBDFEC7EF888FED00172EC',
             'LedgerIndex': '540E2C8BE8CAF4789925E7D0A994AFC9B0BB3384204ABED5273AA1EC570619A8',
@@ -188,7 +188,7 @@ exports.offerCreateNoChangeTakerGets = function() {
         },
         {
           'ModifiedNode': {
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'PreviousTxnLgrSeq': 14873629,
             'PreviousTxnID': 'FD7652E70C7DDBD4675F674DF2EB237907880F6F8EE553B1DBDA9D0460FAF7FD',
             'LedgerIndex': '781AF1DC042C46599EC0BC36614D59AE8D69E6D2BAA9E7B5B31669BADCD2308E',
@@ -223,7 +223,7 @@ exports.offerCreateNoChangeTakerGets = function() {
         },
         {
           'ModifiedNode': {
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'PreviousTxnLgrSeq': 14853017,
             'PreviousTxnID': '5C040183A84A20547715B222B6526A835B7D9A1F2C7C56FF69C9408BCE95EA95',
             'LedgerIndex': 'A828394ABAD75CBE8783A1FFF15CCA2A754A127841CA9BB8A8B118AD001A2DA8',
@@ -466,7 +466,7 @@ exports.offerCreateConsumedOffer = function() {
               },
               'LowNode': '000000000000028F'
             },
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'LedgerIndex': '42A6E9991D540C80BE4A43EF5254656DD862F602BBFF99BC576B44FBF6B7D775',
             'PreviousFields': {
               'Balance': {
@@ -501,7 +501,7 @@ exports.offerCreateConsumedOffer = function() {
               },
               'LowNode': '0000000000000231'
             },
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'LedgerIndex': '615463C4F78931AA3E2B65FE49C6DAAC25A456C15679E67D1C19CA0943D98C5A',
             'PreviousFields': {
               'Balance': {
@@ -536,7 +536,7 @@ exports.offerCreateConsumedOffer = function() {
               },
               'LowNode': '00000000000002C4'
             },
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'LedgerIndex': '817EB23FB16D8D17676F29055C989CDFB738B7FC310DF3AB5CA0D06AA2DC1326',
             'PreviousFields': {
               'Balance': {
@@ -571,7 +571,7 @@ exports.offerCreateConsumedOffer = function() {
               },
               'LowNode': '0000000000000201'
             },
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'LedgerIndex': 'C688AE8E51943530C931C3B838D15818BDA1F1B60B641B5F866B724AD7D3E79B',
             'PreviousFields': {
               'Balance': {
@@ -606,7 +606,7 @@ exports.offerCreateConsumedOffer = function() {
               },
               'LowNode': '0000000000000201'
             },
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'LedgerIndex': 'D8F66B71771581E6185072E5264B2C4C0F9C2CA642EE46B62D6F550D897D00FF',
             'PreviousFields': {
               'Balance': {
@@ -659,7 +659,7 @@ exports.offerCreateConsumedOffer = function() {
               },
               'LowNode': '000000000000028F'
             },
-            'LedgerEntryType': 'RippleState',
+            'LedgerEntryType': 'StoxumState',
             'LedgerIndex': 'E929BE69F05FEB6B376C97E22A264D93D88A7E42BE3FE5BFBD1842AC08C85BCF',
             'PreviousFields': {
               'Balance': {
